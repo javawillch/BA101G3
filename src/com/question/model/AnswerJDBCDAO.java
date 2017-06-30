@@ -16,6 +16,8 @@ public class AnswerJDBCDAO implements AnswerDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT * FROM answer WHERE ans_no = ?";
 	// ­×§ï¸ê®Æ
 	private static final String UPDATE = "UPDATE answer set ans_cnt=?, ans_like=?, ans_is_hide=? WHERE ans_no = ?";
+	
+	private static final String GET_Answer_Reports_ByAns_no_STMT = "SELECT ans_no, mem_no, to_char(ansrpt_date,'yyyy-mm-dd hh:mm:ss') ansrpt_date, ansrpt_rsn, ansrpt_is_cert, ansrpt__unrsn FROM answer WHERE ans_no = ? ORDER BY ans_date DESC";
 
 	@Override
 	public void insert(AnswerVO answerVO) {

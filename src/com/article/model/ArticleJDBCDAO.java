@@ -21,7 +21,9 @@ public class ArticleJDBCDAO implements ArticleDAO_interface {
 	private static final String DELETE_ARTICLE = "DELETE FROM article WHERE art_no = ?";	
 	// 修改資料
 	private static final String UPDATE = "UPDATE article SET artc_no= ?, art_title= ?, art_date= ?, art_cnt= ?, art_vcnt= ? WHERE art_no = ?";
-
+	//關鍵字搜尋
+	private static final String SEARCH = "SELECT * FROM article WHERE (art_cnt LIKE ? OR art_title LIKE ?) ORDER BY art_date DESC";
+	
 	@Override
 	public void insert(ArticleVO articleVO) {
 
@@ -371,5 +373,98 @@ public class ArticleJDBCDAO implements ArticleDAO_interface {
 //			System.out.println();
 //		}
 		
+		//關鍵字查詢   
+//		List<ArticleVO> list = dao.searchPattern("%照顧%");
+//		for (ArticleVO articleVO : list) {
+//			System.out.print(articleVO.getArt_no() + ",");
+//			System.out.print(articleVO.getMem_no() + ",");
+//			System.out.print(articleVO.getArtc_no() + ",");
+//			System.out.print(articleVO.getArt_title() + ",");
+//			System.out.print(articleVO.getArt_date() + ",");
+//			System.out.print(articleVO.getArt_cnt() + ",");
+//			System.out.print(articleVO.getArt_vcnt());
+//			System.out.println();
+//		}
+		
+	}
+
+	@Override
+	public void update_art_vcnt(Integer art_vcnt, String art_no) {
+		// 上線累計文章瀏覽數使用
+		
+	}
+
+	@Override
+	public List<ArticleVO> getAllByArtc_no(String artc_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ArticleVO> searchPattern(String pattern) {
+		List<ArticleVO> list = new ArrayList<ArticleVO>();
+		ArticleVO articleVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(SEARCH);
+			pstmt.setString(1, pattern);
+			pstmt.setString(2, pattern);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				articleVO = new ArticleVO();
+				articleVO.setArt_no(rs.getString("art_no"));
+				articleVO.setMem_no(rs.getString("mem_no"));
+				articleVO.setArtc_no(rs.getString("artc_no"));
+				articleVO.setArt_title(rs.getString("art_title"));
+				articleVO.setArt_date(rs.getTimestamp("art_date"));
+				articleVO.setArt_cnt(rs.getString("art_cnt"));
+				articleVO.setArt_vcnt(rs.getInt("art_vcnt"));
+				list.add(articleVO); // Store the row in the list
+			}
+
+			// Handle any DRIVER errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<ArticleVO> getAllByMem_no(String mem_no) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

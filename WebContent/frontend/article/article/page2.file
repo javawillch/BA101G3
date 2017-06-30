@@ -1,0 +1,51 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<div class="container">
+<div class="row">
+<div class="text-center">
+<table border="0">    
+ <tr>
+  <%if (rowsPerPage<rowNumber) {%>
+    <%if(pageIndex>=rowsPerPage){%>
+
+        <td><A id="lii" href="<%=request.getRequestURI()%>?whichPage=1">至第一頁</A>&nbsp;</td>
+        <td><A id="lii" href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>">&laquo; </A>&nbsp;</td>
+    <%}%>
+    <%for (int i=1; i<=pageNumber; i++){%>
+       <td><A id="lii" href="<%=request.getRequestURI()%>?whichPage=<%=i%>"><%=i%></A>&nbsp;</td>
+    <%}%> 
+  
+    <%if(pageIndex<pageIndexArray[pageNumber-1]){%>
+        <td><A id="lii" href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>">&raquo; </A>&nbsp;</td>
+        <td><A id="lii" href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>">至最後一頁</A>&nbsp;</td>
+
+    <%}%>
+  <%}%>  
+ </tr>
+</table>
+</div>
+</div>
+</div>    
+<%if ( pageNumber > 1) {%>
+<table border="0">   
+ <tr> 
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+   <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
+        <td>
+           <select size="1" name="whichPage">
+        <%for (int i=1; i<=pageNumber; i++){%>
+           <option id="lii" value="<%=i%>">跳至第<%=i%>頁
+        <%}%> 
+           </select>
+           <input id="lii" type="submit" value="確定" >  
+        </td>
+   </FORM>
+ </tr>
+</table>
+<%}%>

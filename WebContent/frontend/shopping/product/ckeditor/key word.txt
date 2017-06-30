@@ -1,0 +1,11 @@
+
+
+ckeditor
+
+skins
+
+editor
+
+.cke_top
+
+startColorstr='#333333'

@@ -79,5 +79,138 @@
 	</servlet-mapping>
 	<!-- CKfinder -->
 	
-
+	  <!--圖片驗證碼 -->
+	  <servlet>
+	    <servlet-name>IdentityServlet</servlet-name>
+	    <servlet-class>utility.IdentityServlet</servlet-class>
+	  </servlet>  
+	  <servlet-mapping>
+	    <servlet-name>IdentityServlet</servlet-name>
+	    <url-pattern>/IdentityImage/IdentityImage.do</url-pattern>
+	  </servlet-mapping>
+	  <!--圖片驗證碼 -->
+	
+	  <!--用來讀BLOB圖片使用 -->
+	  <servlet>
+	    <servlet-name>DBPicReader</servlet-name>
+	    <servlet-class>utility.DBPicReader</servlet-class>
+	  </servlet>  
+	  <servlet-mapping>
+	    <servlet-name>DBPicReader</servlet-name>
+	    <url-pattern>/frontend/DBPicReader/DBPicReader.do</url-pattern>
+	  </servlet-mapping>
+	  <!--用來讀BLOB圖片使用 -->
+	
+	  <!--上傳跑條 -->
+	  <servlet>
+	    <servlet-name>progressUpload</servlet-name>
+	    <servlet-class>utility.ProgressUploadServlet</servlet-class>
+	  </servlet>  
+	  <servlet-mapping>
+	    <servlet-name>progressUpload</servlet-name>
+	    <url-pattern>/progressUpload/progressUpload.do</url-pattern>
+	  </servlet-mapping>
+	  <!--上傳跑條 -->
+	
+	  <!--對應到Question的控制器 -->
+	  <servlet>
+	    <servlet-name>QuestionServlet</servlet-name>
+	    <servlet-class>com.question.controller.QuestionServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>QuestionServlet</servlet-name>
+	    <url-pattern>/frontend/question/question.do</url-pattern>
+	  </servlet-mapping>
+	  <!--對應到Question的控制器 -->
+  
+  	  <!--對應到Question分類的控制器 -->
+	  <servlet>
+	    <servlet-name>Question_ClassificationServlet</servlet-name>
+	    <servlet-class>com.question.controller.Question_ClassificationServlet</servlet-class>
+	  </servlet>
+	  
+	  <servlet-mapping>
+	    <servlet-name>Question_ClassificationServlet</servlet-name>
+	    <url-pattern>/frontend/question_classification/question_classification.do</url-pattern>
+	  </servlet-mapping>
+	  <!--對應到Question分類的控制器 -->
+	  
+	  <!--對應到Article的控制器 -->
+	  <servlet>
+	    <servlet-name>ArticleServlet</servlet-name>
+	    <servlet-class>com.article.controller.ArticleServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>ArticleServlet</servlet-name>
+	    <url-pattern>/frontend/article/article.do</url-pattern>
+	  </servlet-mapping>
+	  <!--對應到Article的控制器 -->
+	  
+	  <!--對應到Article分類的控制器 -->
+	  <servlet>
+	    <servlet-name>Article_ClassificationServlet</servlet-name>
+	    <servlet-class>com.article.controller.Article_ClassificationServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>Article_ClassificationServlet</servlet-name>
+	    <url-pattern>/frontend/article_classification/article_classification.do</url-pattern>
+	  </servlet-mapping>
+	  <!--對應到Article分類的控制器 -->
+	  
+	  <!--對應到Article_Favorite的控制器 -->
+	  <servlet>
+	    <servlet-name>Article_FavoriteServlet</servlet-name>
+	    <servlet-class>com.article.controller.Article_FavoriteServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>Article_FavoriteServlet</servlet-name>
+	    <url-pattern>/frontend/article_favorite/article_favorite.do</url-pattern>
+	  </servlet-mapping>	
+	  <!--對應到Article_Favorite的控制器 -->  
+	  
+	  <!--對應到Article_Message的控制器 -->
+	  <servlet>
+	    <servlet-name>Article_MessageServlet</servlet-name>
+	    <servlet-class>com.article.controller.Article_MessageServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>Article_MessageServlet</servlet-name>
+	    <url-pattern>/frontend/article_message/article_message.do</url-pattern>
+	  </servlet-mapping>
+	   <!--對應到Article_Message的控制器 -->
+	  
+	  <!--對應到Article_Message_Report的控制器 -->
+	  <servlet>
+	    <servlet-name>Article_Message_ReportServlet</servlet-name>
+	    <servlet-class>com.article.controller.Article_Message_ReportServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>Article_Message_ReportServlet</servlet-name>
+	    <url-pattern>/frontend/article_message_report/article_message_report.do</url-pattern>
+	  </servlet-mapping>
+	   <!--對應到Article_Message_Report的控制器 -->			  
+	  
+	  <!--對應到Product的控制器 -->
+	  <servlet>
+	    <servlet-name>ProductServlet</servlet-name>
+	    <servlet-class>com.shopping.controller.ProductServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>ProductServlet</servlet-name>
+	    <url-pattern>/frontend/product/product.do</url-pattern>
+	  </servlet-mapping>
+	  <!--對應到Product的控制器 -->
+  
+  	  <!--對應到Product分類的控制器 -->
+	  <servlet>
+	    <servlet-name>Product_ClassificationServlet</servlet-name>
+	    <servlet-class>com.shopping.controller.Product_ClassificationServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	    <servlet-name>Product_ClassificationServlet</servlet-name>
+	    <url-pattern>/frontend/product_classification/product_classification.do</url-pattern>
+	  </servlet-mapping>
+	  <!--對應到Product分類的控制器 -->
+	
+	
 </web-app>
