@@ -15,7 +15,7 @@ public class ArticleServlet extends HttpServlet {
 			throws ServletException, IOException {
 		doPost(req, res);
 	}
-//e04e05
+//e04e05d
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 
