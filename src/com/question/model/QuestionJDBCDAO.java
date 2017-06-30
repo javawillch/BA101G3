@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -27,7 +28,8 @@ public class QuestionJDBCDAO implements QuestionDAO_interface {
 	private static final String DELETE_ANSWER_REPORTs = "DELETE FROM answer_report WHERE ans_no IN (SELECT ans_no FROM answer WHERE qu_no=?)";
 	private static final String DELETE_ANSWERs = "DELETE FROM answer WHERE qu_no = ?";
 	private static final String DELETE_QUESTION = "DELETE FROM question WHERE qu_no = ?";
-	
+	private static final String GET_Answers_ByQu_no_STMT = "SELECT ans_no, mem_no,qu_no,to_char(ans_date,'yyyy-mm-dd hh:mm:ss') ans_date, ans_cnt, ans_like, and_is_hide FROM answer where qu_no = ? order by ans_date DESC";
+
 	
 	@Override
 	public void insert(QuestionVO questionVO) {
@@ -302,6 +304,13 @@ public class QuestionJDBCDAO implements QuestionDAO_interface {
 //			System.out.print(questionVO.getQu_cnt());
 //			System.out.println();
 //		}
+	}
+
+
+	@Override
+	public Set<AnswerVO> getAnswersByQu_no(String qu_no) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

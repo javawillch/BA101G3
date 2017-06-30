@@ -10,7 +10,7 @@ public class Article_Message_ReportJDBCDAO implements Article_Message_ReportDAO_
 	private static final String USER = "ba101g3";
 	private static final String PASSWORD = "baby";
 	// 新增資料
-	private static final String INSERT_STMT = "INSERT INTO article_message_report (amsg_no, mem_no, amrpt_date, amrpt_rsn, amrpt_is_cert, amrpt_unrsn ) VALUES (?, ?, SYSDATE, ?, '0', ?)";
+	private static final String INSERT_STMT = "INSERT INTO article_message_report (amsg_no, mem_no, amrpt_date, amrpt_rsn, amrpt_is_cert, amrpt_unrsn ) VALUES (?, ?, SYSDATE, ?, '0', null)";
 	// 查詢資料
 	private static final String GET_ALL_STMT = "SELECT * FROM article_message_report";
 	private static final String GET_ONE_STMT = "SELECT * FROM article_message_report WHERE amsg_no = ? and mem_no=? ";
@@ -31,7 +31,7 @@ public class Article_Message_ReportJDBCDAO implements Article_Message_ReportDAO_
 			pstmt.setString(1, article_message_reportVO.getAmsg_no());
 			pstmt.setString(2, article_message_reportVO.getMem_no());
 			pstmt.setString(3, article_message_reportVO.getAmrpt_rsn());
-			pstmt.setString(4, article_message_reportVO.getAmrpt_unrsn());
+
 			
 			pstmt.executeUpdate();
 
@@ -242,12 +242,12 @@ public class Article_Message_ReportJDBCDAO implements Article_Message_ReportDAO_
 		Article_Message_ReportJDBCDAO dao = new Article_Message_ReportJDBCDAO();
 		// 測試看看每個指令是否可以使用
 		// 新增 OK
-//		Article_Message_ReportVO article_message_reportVO1 = new Article_Message_ReportVO();
-//		article_message_reportVO1.setAmsg_no("AMSG0002");
-//		article_message_reportVO1.setMem_no("M0000006");
-//		article_message_reportVO1.setAmrpt_rsn("不雅文字，新增測試");
-//		dao.insert(article_message_reportVO1);
-//		System.out.println("新增一筆檢舉成功");
+		Article_Message_ReportVO article_message_reportVO1 = new Article_Message_ReportVO();
+		article_message_reportVO1.setAmsg_no("AMSG0002");
+		article_message_reportVO1.setMem_no("M0000006");
+		article_message_reportVO1.setAmrpt_rsn("不雅文字，新增測試");
+		dao.insert(article_message_reportVO1);
+		System.out.println("新增一筆檢舉成功");
 
 		// 修改 OK
 //		Article_Message_ReportVO article_message_reportVO2 = new Article_Message_ReportVO();

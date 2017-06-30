@@ -16,6 +16,9 @@ public class Buyer_ReportJDBCDAO implements Buyer_ReportDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT * FROM buyer_report WHERE ord_no = ? AND mem_no = ?";
 	// 修改資料
 	private static final String UPDATE = "UPDATE buyer_report set buyrpt_date=?, buyrpt_rsn=?, buyrpt_is_cert=?, buyrpt_unrsn=? where ord_no=? AND mem_no=?";
+	//訂單編號查賣家會員編號
+	private static final String FIND_SELLER_MEM_NO_BY_ORDER_NO = "SELECT mem_no FROM product WHERE pro_no IN (SELECT pro_noFROM orderlist WHERE ord_no = ?)";
+
 	@Override
 	public void insert(Buyer_ReportVO buyer_reportVO) {
 
@@ -276,5 +279,60 @@ public class Buyer_ReportJDBCDAO implements Buyer_ReportDAO_interface {
 //			System.out.println();
 //		}
 		
+	}
+
+	//透過訂單編號找賣家會員編號
+	@Override
+	public String findSellerMem_noByOrder_no(String ord_no) {
+		String seller_mem_no = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(FIND_SELLER_MEM_NO_BY_ORDER_NO);
+
+			pstmt.setString(1, ord_no);
+
+			rs = pstmt.executeQuery();
+			seller_mem_no = rs.getString("mem_no");
+
+
+			// Handle any DRIVER errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database DRIVER. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return seller_mem_no;
 	}
 }

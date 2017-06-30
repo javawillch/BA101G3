@@ -228,7 +228,7 @@ public class Question_ClassificationJDBCDAO implements Question_ClassificationDA
 	
 	@Override
 	public Set<QuestionVO> getQuestionsByQuec_no(String quec_no) {
-		// TODO Auto-generated method stub
+		// JDBC版本沒用到
 		return null;
 	}
 

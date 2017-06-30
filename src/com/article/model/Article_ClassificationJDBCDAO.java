@@ -256,4 +256,10 @@ public class Article_ClassificationJDBCDAO implements Article_ClassificationDAO_
 //		}
 		
 	}
+
+	@Override
+	public Set<ArticleVO> getArticlesByArtc_no(String artc_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

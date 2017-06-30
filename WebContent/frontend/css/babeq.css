@@ -99,7 +99,7 @@ section h3{
 	/*border-radius: 300px;*/
 	border: solid 5px gray;
 	border-radius:50%;
-    border-image: url("pic/circleborder100.png") 27 27 round stretch;
+    border-image: url("..pic/circleborder100.png") 27 27 round stretch;
 	overflow: hidden;
 }
 
@@ -444,6 +444,49 @@ a > img {
 /* - - - - - - - - - - - - - - - - - - - - - - -
 Article Start
 - - - - - - - - - - - - - - - - - - - - - - - - */
+.avoidHeader .topic{
+	margin-top: 25px;
+}
+
+/*改不動阿ㄚㄚㄚ*/
+#identity{
+	vertical-align: text-top;
+}
+
+.listOneArtical .articalBorder{
+	/*margin-bottom: 0px;
+	margin-top: 0px;*/
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: auto;
+	border: solid 15px;
+    border-image: url("../pic/borderimg100.png") 27 27 round stretch;
+}
+
+.hotArtical .articalBorderwill{
+	/*margin-bottom: 0px;
+	margin-top: 0px;*/
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+
+	border: solid 15px;
+    border-image: url("../pic/borderimg100.png") 27 27 round stretch;
+}
+.articalBorderwill{
+	/*margin-bottom: 0px;
+	margin-top: 0px;*/
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 300px;
+	border: solid 15px;
+    border-image: url("../pic/borderimg100.png") 27 27 round stretch;
+}
+
+
+
 .searchbar{
 	margin-top: 20px;
 	border: solid 10px;
