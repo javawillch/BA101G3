@@ -152,7 +152,8 @@
 							        while (m.find()) {
 							            String src = m.group();
 							            int startIndex = src.indexOf("src=") + 5;
-							            srcTag = src.substring(startIndex, src.length()); }%>
+							            srcTag = src.substring(startIndex, src.length()); 
+							            break;}%>
 									<img class="img-responsive" src="<%=srcTag%>">
 								</div>
 							</div>

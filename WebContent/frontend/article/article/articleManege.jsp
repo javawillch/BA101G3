@@ -27,7 +27,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-		<title>Title Page</title>
+		<title>文章管理</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 			<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/frontend/css/babeq.css">			
 		<!--[if lt IE 9]>
@@ -36,11 +36,31 @@
 		<![endif]-->
 		<style type="text/css">
 			.table-striped tbody tr:nth-of-type(odd){
-				background-color: #aaa;
+				background-color: #EEE;
 			}
 			.table-hover tbody tr:hover{
-				background-color: #fa0;
+				background-color: #52DBFF;
 			}
+			<!--tab分頁CSS-->
+			.nav-tabs { border-bottom: 2px solid #DDD; 
+						}
+			    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
+			    .nav-tabs > li > a { border: none; color: #ffffff;background: #5a4080; }
+			        .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none;  color: #5a4080 !important; background: #fff; }
+			        .nav-tabs > li > a::after { content: ""; background: #5a4080; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
+			    .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
+			.tab-nav > li > a::after { background: ##5a4080 none repeat scroll 0% 0%; color: #fff; }
+			.tab-pane { padding: 15px 0; }
+			.tab-content{padding:20px;}
+			.nav-tabs > li  {width:20%; text-align:center;}
+			.card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; margin-top:100px;}
+			body{ background: #EDECEC; padding:50px}
+			
+			@media all and (max-width:724px){
+			.nav-tabs > li > a > span {display:none;}	
+			.nav-tabs > li > a {padding: 5px 5px;}
+			}
+			<!--tab分頁CSS-->
 		</style>
 	</head>
 	<body>
@@ -79,84 +99,119 @@
 		<div class="container">
 			<div class="row">	
 				<div class="col-xs-12 col-sm-12 avoidHeader">
-					
-					<div class="topic">
-						我的文章管理
-					</div>
-					
-					<table class="table table-hover table-condensed table-striped table-bordered">
-						<thead>
-							<tr>
-								<th width="25">No.</th>
-								<th>文章標題</th>
-								<th width="75">文章類型</th>
-								<th width="330">文章內容</th>
-								<th width="90">發表時間</th>
-								<th width="60">瀏覽數</th>
-								<th width="32">修改</th>
-								<th width="32">刪除</th>
-							</tr>
-						</thead>
-						<tbody>
-							<%@ include file="page1.file" %> 
-							<c:forEach var="articleVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
-							<tr ${(articleVO.art_no==param.art_no)? 'bgcolor=#FFCCCC':''}>
-								<td>
-<!-- 計數 -->						<c:out value="${s.index}"/>
-								</td>
-								<td>${articleVO.art_title}</td>
-								<td>
-									<c:forEach var="article_classificationVO" items="${article_classificationSvc.all}">
-					                    <c:if test="${articleVO.artc_no==article_classificationVO.artc_no}">
-						                    ${article_classificationVO.artc_name}
-					                    </c:if>
-					                </c:forEach>
-								</td>
-								<td>
-									<c:set var="art_cnt" value="${articleVO.art_cnt}" />
-									<% String art_cnt2= String.valueOf(pageContext.getAttribute("art_cnt"));
-									  
-								       String tagPattern = "<{1}[^>]{1,}>{1}";               //把所有<>標籤內的東西標起來
-								       String art_cnt = art_cnt2.replaceAll(tagPattern, "");
-								       int length = art_cnt.length();
-								       
-									   String showPart = null;
-									   if(length<30){
-										   showPart = art_cnt;
-									   }else{
-										   showPart = art_cnt.substring(0,18)+"...";
-									   }
-									%>
-							 		<%=showPart%>
-								</td>
-								<td>
-									<fmt:formatDate  pattern="yyyy-MM-dd" value="${articleVO.art_date}"/>
-								</td>
-								<td>${articleVO.art_vcnt}</td>
-
-								<td>
-								    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/article/article.do">
-								        <input type="submit" value="修改"> 
-								        <input type="hidden" name="art_no" value="${articleVO.art_no}">
-								        <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
-								        <input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller-->
-								        <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-								</td>
-								<td>
-							   	    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/article/article.do">
-								    	<input type="submit" value="刪除">
-								    	<input type="hidden" name="art_no" value="${articleVO.art_no}">
-								    	<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
-								    	<input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller-->
-								    	<input type="hidden" name="action"      value="delete"></FORM>
-								</td>
-							</tr>
+				
+			<!-- 要怎麼調整Margin top -->
+						<div class="topic">
+							我的文章管理
+						</div>
+						
+					<div class="card">
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active">
+								<a href="#artManager" aria-controls="artManager" role="tab" data-toggle="tab">
+									<div class="topic">
+										我的文章管理
+									</div>
+								</a>
+							</li>
+							<li role="presentation">
+								<a href="#artFavorite" aria-controls="artFavorite" role="tab" data-toggle="tab">
+									<div class="topic">
+										我的收藏文章
+									</div>
+								</a>
+							</li>							
+							
+						</ul>
 
 						
-						</c:forEach>
-					</table>
-					<%@ include file="page2.file" %>
-					</tbody>
+						
+						<!-- tab區塊 -->
+						<div class="tab-content">
+						    <div role="tabpanel" class="tab-pane active" id="artManager">
+						<!-- tab區塊 -->
+						<table class="table table-hover table-condensed table-striped table-bordered">
+							<thead>
+								<tr>
+									<th width="25">No.</th>
+									<th>文章標題</th>
+									<th width="75">文章類型</th>
+									<th width="330">文章內容</th>
+									<th width="90">發表時間</th>
+									<th width="60">瀏覽數</th>
+									<th width="32">修改</th>
+									<th width="32">刪除</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%@ include file="page1.file" %> 
+								<c:forEach var="articleVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">
+								<tr ${(articleVO.art_no==param.art_no)? 'bgcolor=#FFCCCC':''}>
+									<td>
+	<!-- 計數 -->						<c:out value="${s.index}"/>
+									</td>
+									<td>${articleVO.art_title}</td>
+									<td>
+										<c:forEach var="article_classificationVO" items="${article_classificationSvc.all}">
+						                    <c:if test="${articleVO.artc_no==article_classificationVO.artc_no}">
+							                    ${article_classificationVO.artc_name}
+						                    </c:if>
+						                </c:forEach>
+									</td>
+									<td>
+										<c:set var="art_cnt" value="${articleVO.art_cnt}" />
+										<% String art_cnt2= String.valueOf(pageContext.getAttribute("art_cnt"));
+										  
+									       String tagPattern = "<{1}[^>]{1,}>{1}";               //把所有<>標籤內的東西標起來
+									       String art_cnt = art_cnt2.replaceAll(tagPattern, "");
+									       int length = art_cnt.length();
+									       
+										   String showPart = null;
+										   if(length<30){
+											   showPart = art_cnt;
+										   }else{
+											   showPart = art_cnt.substring(0,18)+"...";
+										   }
+										%>
+								 		<%=showPart%>
+									</td>
+									<td>
+										<fmt:formatDate  pattern="yyyy-MM-dd" value="${articleVO.art_date}"/>
+									</td>
+									<td>${articleVO.art_vcnt}</td>
+	
+									<td>
+									    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/article/article.do">
+									        <input type="submit" value="修改"> 
+									        <input type="hidden" name="art_no" value="${articleVO.art_no}">
+									        <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
+									        <input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller-->
+									        <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+									</td>
+									<td>
+								   	    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/article/article.do">
+									    	<input type="submit" value="刪除">
+									    	<input type="hidden" name="art_no" value="${articleVO.art_no}">
+									    	<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
+									    	<input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller-->
+									    	<input type="hidden" name="action"      value="delete"></FORM>
+									</td>
+								</tr>
+	
+							
+							</c:forEach>
+						</table>
+						<!-- tab區塊 -->
+							<%@ include file="page2.file" %>
+						</div>
+						
+						<div role="tabpanel" class="tab-pane" id="artFavorite">
+						</div>
+						</div>
+						<!-- tab區塊 -->
+					
+						</tbody>
+					</div>
 				</div>
 			</div>
 		</div>
